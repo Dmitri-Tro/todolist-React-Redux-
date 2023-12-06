@@ -1,20 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {TodolistComponent} from "./components/Todolist.component";
-import {TaskType} from "./components/Task.component";
+import {TaskType, TodolistComponent} from "./components/Todolist.component";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-    const todoListTitle_1 = 'What to do';
-    const todoListTitle_2 = 'What to learn';
-    const todoListTitle_3 = 'What to buy';
-    const tasks: Array<TaskType> = [
-        {id: "1", title: "HTML, CSS", status: true},
-        {id: "2", title: "JS", status: true},
-        {id: "3", title: "React", status: false},
-    ]
+    const todoListTitle = 'What to do';
+
+    const [tasks, setTasks] = useState<Array<TaskType>>([ //initial state
+        {id: uuidv4(), title: "HTML, CSS", status: true},
+        {id: uuidv4(), title: "JS", status: true},
+        {id: uuidv4(), title: "React", status: false},
+    ]);
+
+    const removeTask = (taskId: string) => {
+        const nextState: Array<TaskType> = tasks.filter(task => task.id !== taskId)
+        setTasks(nextState);
+    }
+
+    const addTask = (taskTitle: string) => {
+        const newTask: TaskType = {id: uuidv4(), title: taskTitle, status: false};
+        setTasks([newTask, ...tasks])
+    }
+
+    const updateStatus = (taskId: string) => {
+        setTasks(tasks.map(task => task.id === taskId ? {...task, status: !task.status} : task))
+
+    }
+
+    const updateTaskTitle = () => {
+
+    }
+
     return (
         <div className="App">
-            <TodolistComponent title={todoListTitle_3} tasks = {tasks}/>
+            <TodolistComponent
+                title = {todoListTitle}
+                tasks = {tasks}
+                removeTask = {removeTask}
+                addTask = {addTask}
+                updateStatus = {updateStatus}
+            />
         </div>
     );
 }

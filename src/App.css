@@ -1,3 +1,17 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
 .App {
   padding: 30px;
   display: flex;
@@ -8,8 +22,46 @@
 }
 
 .todolist {
+  min-width: 300px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 15px;
-  background-color: coral;
+  background-color: darkseagreen;
+}
+
+.collapsed-btn {
+  margin-bottom: 10px;
+}
+
+.task-add-input {
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  outline: none;
+}
+
+.task-add-input-error {
+  border: 2px solid red;
+}
+
+.task-checkbox {
+  cursor: pointer;
+}
+
+.task-title {
+  padding: 5px;
+}
+
+li > button {
+  border: none;
+  background-color: inherit;
+}
+
+.task-done {
+  opacity: 70%;
+  text-decoration: line-through;
+}
+
+.active-filter-btn {
+  background-color: cyan;
 }
