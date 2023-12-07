@@ -13,12 +13,29 @@ type TasksPropsType = {
 type FilterValuesType = 'All' | 'Active' | 'Completed';
 export const TasksComponent: FC<TasksPropsType> = ({tasks, removeTask, updateStatus}) => {
     const [tasksFilter, setTasksFilter] = useState<FilterValuesType>('All');
-    const filteredTasks: Array<TaskType> =
-        tasksFilter === 'Active'
-            ? tasks.filter(task => !task.status)
-            : tasksFilter === 'Completed'
-                ? tasks.filter(task => task.status)
-                : tasks;
+
+    // First method of filtration:
+
+    // const filteredTasks: Array<TaskType> =
+    //     tasksFilter === 'Active'
+    //         ? tasks.filter(task => !task.status)
+    //         : tasksFilter === 'Completed'
+    //             ? tasks.filter(task => task.status)
+    //             : tasks;
+
+    // Second method of filtration:
+    const filteredTasks = ()=>{
+        let tasksForTodolist: TaskType[];
+        switch (tasksFilter) {
+            case "Active":
+                return   tasksForTodolist = tasks.filter(t => !t.status);
+            case "Completed":
+                return  tasksForTodolist = tasks.filter(t => t.status);
+            default:
+                tasksForTodolist = tasks;
+        }
+        return tasksForTodolist
+    }
 
     const [listRef] = useAutoAnimate<HTMLUListElement>()
     const onAllBtnClick = () => setTasksFilter("All");
@@ -27,10 +44,10 @@ export const TasksComponent: FC<TasksPropsType> = ({tasks, removeTask, updateSta
     return (
         <>
             {
-                filteredTasks.length > 0
+                filteredTasks().length > 0
                     ?
                     <ul ref={listRef}>
-                        {filteredTasks.map(task => {
+                        {filteredTasks().map(task => {
                             return (
                                 <TaskComponent key={task.id}
                                                taskId={task.id}
