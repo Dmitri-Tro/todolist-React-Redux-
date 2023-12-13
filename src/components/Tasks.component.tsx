@@ -3,16 +3,19 @@ import {ButtonComponent} from "./Button.component";
 import React, {FC, useState} from "react";
 import {TaskType} from "./Todolist.component";
 import {useAutoAnimate} from "@formkit/auto-animate/react";
+import {FilterValuesType} from "../App";
 
 type TasksPropsType = {
+    todoListID: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    updateStatus: (taskId: string) => void
+    removeTask: (todoListID: string, taskId: string) => void
+    updateStatus: (todoListID: string, taskId: string) => void
+    filter: FilterValuesType
 }
 
-type FilterValuesType = 'All' | 'Active' | 'Completed';
-export const TasksComponent: FC<TasksPropsType> = ({tasks, removeTask, updateStatus}) => {
-    const [tasksFilter, setTasksFilter] = useState<FilterValuesType>('All');
+
+export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTask, updateStatus, filter}) => {
+    const [tasksFilter, setTasksFilter] = useState<FilterValuesType>(filter);
 
     // First method of filtration:
 
@@ -50,6 +53,7 @@ export const TasksComponent: FC<TasksPropsType> = ({tasks, removeTask, updateSta
                         {filteredTasks().map(task => {
                             return (
                                 <TaskComponent key={task.id}
+                                               todoListID={todoListID}
                                                taskId={task.id}
                                                title={task.title}
                                                status={task.status}

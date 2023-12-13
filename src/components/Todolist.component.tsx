@@ -1,7 +1,7 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
+import React, {FC, useState} from "react";
 import {ButtonComponent} from "./Button.component";
-import {TasksComponent} from "./Tasks.component";
 import {TodolistBody} from "./TodolistBody";
+import {FilterValuesType} from "../App";
 
 export type TaskType = {
     id: string
@@ -9,27 +9,37 @@ export type TaskType = {
     status: boolean
 }
 type TodolistPropsType = {
+    todoListID: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    addTask: (title: string) => void
-    updateStatus: (taskId: string) => void
+    removeTask: (todoListID: string, taskId: string) => void
+    addTask: (todoListID: string, title: string) => void
+    updateStatus: (todoListID: string, taskId: string) => void
+    filter: FilterValuesType
+    deleteTodoList: (todoListID: string) => void
 }
-export const TodolistComponent: FC<TodolistPropsType> = ({title, tasks, removeTask, addTask, updateStatus}) => {
+export const TodolistComponent: FC<TodolistPropsType> = ({todoListID, title, tasks, removeTask, addTask, updateStatus, filter, deleteTodoList}) => {
     const [todoListCollapsed, setTodoListCollapsed] = useState(false);
     const onCollapsedBtnClick = () => {
         setTodoListCollapsed(!todoListCollapsed);
     }
+    const onDeleteTodoListBtnClick = () => {
+        deleteTodoList(todoListID);
+    }
     return(
         <div className="todolist">
-            <h3>{title}</h3>
+            <h3>{title}
+            <ButtonComponent title={'x'} onClickHandler={onDeleteTodoListBtnClick} />
+            </h3>
             <ButtonComponent classes={'collapsed-btn'} title={todoListCollapsed ? 'Show tasks' : 'Hide tasks'} onClickHandler={onCollapsedBtnClick} />
             {todoListCollapsed ? null :
                 <TodolistBody
+                    todoListID={todoListID}
                     tasks={tasks}
                     addTask={addTask}
                     removeTask={removeTask}
                     updateStatus={updateStatus}
+                    filter={filter}
                 />
             }
 

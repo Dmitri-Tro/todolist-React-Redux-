@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
 import {ButtonComponent} from "./Button.component";
 import {TasksComponent} from "./Tasks.component";
+import {FilterValuesType} from "../App";
 
 export type TaskType = {
     id: string
@@ -8,12 +9,14 @@ export type TaskType = {
     status: boolean
 }
 type TodolistBodyPropsType = {
+    todoListID: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    addTask: (title: string) => void
-    updateStatus: (taskId: string) => void
+    removeTask: (todoListID: string, taskId: string) => void
+    addTask: (todoListID: string, title: string) => void
+    updateStatus: (todoListID: string, taskId: string) => void
+    filter: FilterValuesType
 }
-export const TodolistBody: FC<TodolistBodyPropsType> = ({tasks, removeTask, addTask, updateStatus}) => {
+export const TodolistBody: FC<TodolistBodyPropsType> = ({todoListID, tasks, removeTask, addTask, updateStatus, filter}) => {
     const [taskTitle, setTaskTitle] = useState('');
     const [inputError, setInputError] = useState(false);
     const maxLengthTaskError = taskTitle.length >= 15
@@ -25,7 +28,7 @@ export const TodolistBody: FC<TodolistBodyPropsType> = ({tasks, removeTask, addT
     };
     const onAddBtnClickHandler = () => {
         if (taskTitle.trim()) {
-            addTask(taskTitle.trim());
+            addTask(todoListID, taskTitle.trim());
         } else {
             setInputError(true)
         }
@@ -33,7 +36,7 @@ export const TodolistBody: FC<TodolistBodyPropsType> = ({tasks, removeTask, addT
     };
     const onEnterPressAddTaskHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && taskTitle && !maxLengthTaskError) {
-            addTask(taskTitle);
+            addTask(todoListID, taskTitle);
             setTaskTitle('');
         }
     }
@@ -54,9 +57,11 @@ export const TodolistBody: FC<TodolistBodyPropsType> = ({tasks, removeTask, addT
                 {inputError && <div style={{color: "red"}}>Task must contain any symbols</div>}
             </div>
             <TasksComponent
+                todoListID={todoListID}
                 tasks={tasks}
                 removeTask={removeTask}
                 updateStatus={updateStatus}
+                filter={filter}
             />
         </>
     )
