@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, TodolistComponent} from "./components/Todolist.component";
 import {v4 as uuidv4} from 'uuid';
+import {InputAndButton} from "./components/InputAndButton";
 
 
 type TodoListType = {
@@ -66,15 +67,35 @@ function App() {
         // setTasks(tasks.map(task => task.id === taskId ? {...task, status: !task.status} : task))
     };
 
+    const updateTaskTitle = (todoListID: string, taskId: string, newTitle: string) => {
+        setTasks({...tasks, [todoListID]: tasks[todoListID].map(task => task.id === taskId ? {...task, title: newTitle} : task)});
+    }
+
     const deleteTodoList = (todoListID: string) => {
         setTodoLists(todoLists.filter(list => list.id !== todoListID));
         delete tasks[todoListID];
         console.log(tasks)
     }
 
+    const addNewTodoList = (title: string) => {
+        const newListID = uuidv4();
+        const newTodoList: TodoListType = {
+            id: newListID,
+            title: title,
+            filter: 'All'
+        }
+        setTodoLists([newTodoList, ...todoLists]);
+        setTasks({...tasks, [newListID]: []})
+
+    }
+
+    const updateTodoListTitle = (todoListID: string, newTitle: string) => {
+        setTodoLists(todoLists.map(list => list.id === todoListID ? {...list, title: newTitle} : list));
+    }
 
     return (
         <div className="App">
+            <InputAndButton addNewItem={addNewTodoList} inputBtnTitle={'Add new list'} />
             {todoLists.map((element) => {
                 const tasksForTodoList = tasks[element.id];
                 return (
@@ -86,8 +107,10 @@ function App() {
                         removeTask={removeTask}
                         addTask={addTask}
                         updateStatus={updateStatus}
+                        updateTaskTitle={updateTaskTitle}
                         filter={element.filter}
                         deleteTodoList={deleteTodoList}
+                        updateTodoListTitle={updateTodoListTitle}
                     />
                 )
             })}

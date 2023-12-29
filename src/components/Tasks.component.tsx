@@ -10,11 +10,12 @@ type TasksPropsType = {
     tasks: Array<TaskType>
     removeTask: (todoListID: string, taskId: string) => void
     updateStatus: (todoListID: string, taskId: string) => void
+    updateTaskTitle: (todoListID: string, taskId: string, newTitle: string) => void
     filter: FilterValuesType
 }
 
 
-export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTask, updateStatus, filter}) => {
+export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTask, updateStatus, updateTaskTitle, filter}) => {
     const [tasksFilter, setTasksFilter] = useState<FilterValuesType>(filter);
 
     // First method of filtration:
@@ -44,6 +45,11 @@ export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTas
     const onAllBtnClick = () => setTasksFilter("All");
     const onActiveBtnClick = () => setTasksFilter("Active");
     const onCompletedBtnClick = () => setTasksFilter("Completed");
+
+    const setTaskNewTitle = (taskId: string, newTitle: string) => {
+        updateTaskTitle (todoListID, taskId, newTitle);
+    };
+
     return (
         <>
             {
@@ -59,7 +65,7 @@ export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTas
                                                status={task.status}
                                                removeTask={removeTask}
                                                updateStatus={updateStatus}
-
+                                               setTaskNewTitle={setTaskNewTitle}
                                 />
                             )
                         })}

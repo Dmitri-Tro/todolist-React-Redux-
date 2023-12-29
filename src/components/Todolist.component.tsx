@@ -2,6 +2,7 @@ import React, {FC, useState} from "react";
 import {ButtonComponent} from "./Button.component";
 import {TodolistBody} from "./TodolistBody";
 import {FilterValuesType} from "../App";
+import {EditableTitle} from "./EditableTitle";
 
 export type TaskType = {
     id: string
@@ -15,10 +16,23 @@ type TodolistPropsType = {
     removeTask: (todoListID: string, taskId: string) => void
     addTask: (todoListID: string, title: string) => void
     updateStatus: (todoListID: string, taskId: string) => void
+    updateTaskTitle: (todoListID: string, taskId: string, newTitle: string) => void
     filter: FilterValuesType
     deleteTodoList: (todoListID: string) => void
+    updateTodoListTitle: (todoListID: string, title: string) => void
 }
-export const TodolistComponent: FC<TodolistPropsType> = ({todoListID, title, tasks, removeTask, addTask, updateStatus, filter, deleteTodoList}) => {
+export const TodolistComponent: FC<TodolistPropsType> = ({
+                                                             todoListID,
+                                                             title,
+                                                             tasks,
+                                                             removeTask,
+                                                             addTask,
+                                                             updateStatus,
+                                                             filter,
+                                                             deleteTodoList,
+                                                             updateTaskTitle,
+                                                             updateTodoListTitle
+                                                         }) => {
     const [todoListCollapsed, setTodoListCollapsed] = useState(false);
     const onCollapsedBtnClick = () => {
         setTodoListCollapsed(!todoListCollapsed);
@@ -26,12 +40,19 @@ export const TodolistComponent: FC<TodolistPropsType> = ({todoListID, title, tas
     const onDeleteTodoListBtnClick = () => {
         deleteTodoList(todoListID);
     }
-    return(
+
+    const setTodoListNewTitle = (newTitle: string) => {
+        updateTodoListTitle(todoListID, newTitle)
+    }
+
+    return (
         <div className="todolist">
-            <h3>{title}
-            <ButtonComponent title={'x'} onClickHandler={onDeleteTodoListBtnClick} />
+            <h3>
+                <EditableTitle oldTitle={title} setNewTitle={setTodoListNewTitle}/>
+                <ButtonComponent title={'x'} onClickHandler={onDeleteTodoListBtnClick}/>
             </h3>
-            <ButtonComponent classes={'collapsed-btn'} title={todoListCollapsed ? 'Show tasks' : 'Hide tasks'} onClickHandler={onCollapsedBtnClick} />
+            <ButtonComponent classes={'collapsed-btn'} title={todoListCollapsed ? 'Show tasks' : 'Hide tasks'}
+                             onClickHandler={onCollapsedBtnClick}/>
             {todoListCollapsed ? null :
                 <TodolistBody
                     todoListID={todoListID}
@@ -39,6 +60,7 @@ export const TodolistComponent: FC<TodolistPropsType> = ({todoListID, title, tas
                     addTask={addTask}
                     removeTask={removeTask}
                     updateStatus={updateStatus}
+                    updateTaskTitle={updateTaskTitle}
                     filter={filter}
                 />
             }
