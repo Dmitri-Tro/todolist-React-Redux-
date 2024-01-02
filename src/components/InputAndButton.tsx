@@ -8,8 +8,8 @@ type InputAndButtonPropsType = {
 
 export const InputAndButton: FC<InputAndButtonPropsType> = ({addNewItem, inputBtnTitle}) => {
 
-    const [title, setTitle] = useState('');
-    const [inputError, setInputError] = useState(false);
+    const [title, setTitle] = useState<string>('');
+    const [inputError, setInputError] = useState<boolean>(false);
     const maxLengthTaskError = title.length >= 15;
 
     const onInputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,14 +18,12 @@ export const InputAndButton: FC<InputAndButtonPropsType> = ({addNewItem, inputBt
             setTitle(event.currentTarget.value);
         }
     };
-
     const onEnterPressAddTaskHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && title && !maxLengthTaskError) {
             addNewItem(title);
             setTitle('');
         }
     }
-
     const onAddBtnClickHandler = () => {
         if (title.trim()) {
             addNewItem(title.trim());

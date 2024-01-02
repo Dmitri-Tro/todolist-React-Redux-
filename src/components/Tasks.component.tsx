@@ -1,9 +1,8 @@
 import {TaskComponent} from "./Task.component";
 import {ButtonComponent} from "./Button.component";
 import React, {FC, useState} from "react";
-import {TaskType} from "./Todolist.component";
 import {useAutoAnimate} from "@formkit/auto-animate/react";
-import {FilterValuesType} from "../App";
+import {FilterValuesType, TaskType} from "../types/types";
 
 type TasksPropsType = {
     todoListID: string
@@ -14,12 +13,10 @@ type TasksPropsType = {
     filter: FilterValuesType
 }
 
-
 export const TasksComponent: FC<TasksPropsType> = ({todoListID, tasks, removeTask, updateStatus, updateTaskTitle, filter}) => {
     const [tasksFilter, setTasksFilter] = useState<FilterValuesType>(filter);
 
     // First method of filtration:
-
     // const filteredTasks: Array<TaskType> =
     //     tasksFilter === 'Active'
     //         ? tasks.filter(task => !task.status)

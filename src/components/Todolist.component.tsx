@@ -1,14 +1,10 @@
 import React, {FC, useState} from "react";
 import {ButtonComponent} from "./Button.component";
 import {TodolistBody} from "./TodolistBody";
-import {FilterValuesType} from "../App";
 import {EditableTitle} from "./EditableTitle";
+import {FilterValuesType, TaskType} from "../types/types";
 
-export type TaskType = {
-    id: string
-    title: string
-    status: boolean
-}
+
 type TodolistPropsType = {
     todoListID: string
     title: string
@@ -33,7 +29,7 @@ export const TodolistComponent: FC<TodolistPropsType> = ({
                                                              updateTaskTitle,
                                                              updateTodoListTitle
                                                          }) => {
-    const [todoListCollapsed, setTodoListCollapsed] = useState(false);
+    const [todoListCollapsed, setTodoListCollapsed] = useState<boolean>(false);
     const onCollapsedBtnClick = () => {
         setTodoListCollapsed(!todoListCollapsed);
     }

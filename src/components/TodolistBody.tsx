@@ -1,14 +1,8 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useState} from "react";
-import {ButtonComponent} from "./Button.component";
+import React, {FC} from "react";
 import {TasksComponent} from "./Tasks.component";
-import {FilterValuesType} from "../App";
 import {InputAndButton} from "./InputAndButton";
+import {FilterValuesType, TaskType} from "../types/types";
 
-export type TaskType = {
-    id: string
-    title: string
-    status: boolean
-}
 type TodolistBodyPropsType = {
     todoListID: string
     tasks: Array<TaskType>
@@ -19,7 +13,6 @@ type TodolistBodyPropsType = {
     filter: FilterValuesType
 }
 export const TodolistBody: FC<TodolistBodyPropsType> = ({todoListID, tasks, removeTask, addTask, updateStatus, updateTaskTitle, filter}) => {
-
     const addNewTask = (taskTitle: string) => {
         addTask(todoListID, taskTitle)
     }
