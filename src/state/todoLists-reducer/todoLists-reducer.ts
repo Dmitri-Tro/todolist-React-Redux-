@@ -1,13 +1,14 @@
 import {TodoListType} from "../../types/types";
+import {v1} from "uuid";
 
-type TodoListsReducerAction = RemoveTodoListAC | AddTodoListAC | UpdateTodoListTitleAC;
+export type TodoListsReducerAction = RemoveTodoListAC | AddTodoListAC | UpdateTodoListTitleAC;
 
 export const REMOVE_TODOLIST = 'Remove-todoList';
 export const ADD_TODOLIST = 'Add-todoList';
 export const UPDATE_TODOLIST_TITLE = 'Update-todoList-title';
 
 
-type RemoveTodoListAC = ReturnType <typeof removeTodoListAC>;
+export type RemoveTodoListAC = ReturnType <typeof removeTodoListAC>;
 export const removeTodoListAC = (todoListID: string) => {
     return {
         type: REMOVE_TODOLIST,
@@ -17,8 +18,9 @@ export const removeTodoListAC = (todoListID: string) => {
     } as const
 };
 
-type AddTodoListAC = ReturnType <typeof addTodoListAC>;
-export const addTodoListAC = (newListID: string, todoListTitle: string) => {
+export type AddTodoListAC = ReturnType <typeof addTodoListAC>;
+export const addTodoListAC = (todoListTitle: string) => {
+    const newListID = v1();
     return {
         type: ADD_TODOLIST,
         payload: {
@@ -26,7 +28,7 @@ export const addTodoListAC = (newListID: string, todoListTitle: string) => {
             todoListTitle
         }
     } as const
-}
+};
 
 type UpdateTodoListTitleAC = ReturnType <typeof updateTodoListTitleAC>;
 export const updateTodoListTitleAC = (todoListID: string, newTitle: string) => {
@@ -37,9 +39,10 @@ export const updateTodoListTitleAC = (todoListID: string, newTitle: string) => {
             newTitle
         }
     }as const
-}
+};
 
-export const todoListsReducer = (state: Array<TodoListType>, action: TodoListsReducerAction): Array<TodoListType> => {
+const initialState: Array<TodoListType> = [  ];
+export const todoListsReducer = (state: Array<TodoListType> = initialState, action: TodoListsReducerAction): Array<TodoListType> => {
     switch (action.type) {
         case REMOVE_TODOLIST:
             return state.filter(list => list.id !== action.payload.todoListID);
@@ -51,8 +54,8 @@ export const todoListsReducer = (state: Array<TodoListType>, action: TodoListsRe
             }
             return [newTodoList, ...state];
         case UPDATE_TODOLIST_TITLE:
-            return state.map(list => list.id === action.payload.todoListID ? {...list, title: action.payload.newTitle} : list)
+            return state.map(list => list.id === action.payload.todoListID ? {...list, title: action.payload.newTitle} : list);
         default:
-            throw new Error('todoListsReducer don\'t understand this action.type!');
+            return state
     }
-}
+};

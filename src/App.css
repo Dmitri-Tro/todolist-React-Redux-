@@ -33,50 +33,8 @@ button {
   margin-bottom: 10px;
 }
 
-.addInput-input {
-  border-radius: 5px;
-  border: 2px solid blue;
-  padding: 5px;
-  outline: none;
-}
-
-.addInput-input-error {
-  border: 2px solid red;
-}
-
-.task-checkbox {
-  cursor: pointer;
-}
-
-.editableTitle-title {
-  padding: 5px;
-  cursor: pointer;
-}
-
-.editableTitle-input {
-  font-size: inherit;
-  font-weight: inherit;
-  border: none;
-  outline: 1px solid greenyellow;
-  background-color: inherit;
-}
-
-li > button {
-  border: none;
-  background-color: inherit;
-}
-
-.task-done {
-  opacity: 70%;
-  text-decoration: line-through;
-}
-
 .active-filter-btn {
   color: white;
   background-color: blue;
 }
 
-.addInput-btn {
-  color: white;
-  background-color: blue;
-}

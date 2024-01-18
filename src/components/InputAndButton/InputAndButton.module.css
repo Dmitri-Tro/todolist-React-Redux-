@@ -1,0 +1,22 @@
+
+.input {
+    border-radius: 5px;
+    border: 2px solid blue;
+    padding: 5px;
+    outline: none;
+}
+
+.inputError {
+    border: 2px solid red;
+}
+
+.btn {
+    font-weight: bold;
+    color: white;
+    background-color: blue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 10px;
+}

@@ -1,5 +1,5 @@
 {
-  "name": "1-lesson",
+  "name": "todolist",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,10 +15,13 @@
     "@types/node": "^16.18.1",
     "@types/react": "^18.0.23",
     "@types/react-dom": "^18.0.7",
+    "@types/react-redux": "^7.1.33",
     "@types/uuid": "^9.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.0.4",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
     "styled-components": "^6.1.2",
     "typescript": "^4.8.4",
     "uuid": "^9.0.1",
@@ -28,12 +31,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "storybook dev -p 9009",
+    "build-storybook": "storybook build",
+    "jest:integration": "jest -c integration/jest.config.js",
+    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration",
+    "update-snapshot": "jest -c integration/jest.config.js --updateSnapshot"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -49,6 +58,25 @@
     ]
   },
   "devDependencies": {
-    "@formkit/auto-animate": "^0.8.1"
+    "@formkit/auto-animate": "^0.8.1",
+    "@storybook/addon-essentials": "7.6.8",
+    "@storybook/addon-interactions": "7.6.8",
+    "@storybook/addon-links": "7.6.8",
+    "@storybook/addon-onboarding": "1.0.10",
+    "@storybook/blocks": "7.6.8",
+    "@storybook/preset-create-react-app": "7.6.8",
+    "@storybook/react": "7.6.8",
+    "@storybook/react-webpack5": "7.6.8",
+    "@storybook/test": "7.6.8",
+    "eslint-plugin-storybook": "^0.6.15",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-image-snapshot": "^6.4.0",
+    "jest-puppeteer": "^9.0.2",
+    "prop-types": "15.8.1",
+    "puppeteer": "^21.7.0",
+    "start-server-and-test": "^2.0.3",
+    "storybook": "7.6.8",
+    "webpack": "5.89.0"
   }
 }

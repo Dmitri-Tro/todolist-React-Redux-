@@ -1,0 +1,12 @@
+.editableTitle {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.editableTitleInput {
+    font-size: inherit;
+    font-weight: inherit;
+    border: none;
+    outline: 1px solid greenyellow;
+    background-color: inherit;
+}

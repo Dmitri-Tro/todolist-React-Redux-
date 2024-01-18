@@ -1,19 +1,23 @@
 import {TasksType, TaskType} from "../../types/types";
-import {v4 as uuidv4} from "uuid";
+import {v1} from "uuid";
+import {
+    ADD_TODOLIST,
+    AddTodoListAC,
+    REMOVE_TODOLIST,
+    RemoveTodoListAC
+} from "../todoLists-reducer/todoLists-reducer";
 
-type TasksReducerAction = RemoveTaskAC
+export type TasksReducerAction = RemoveTaskAC
     | AddTaskAC
     | UpdateTaskStatusAC
     | UpdateTaskTitleAC
-    | DeleteAllTasksForTodoListAC
-    | AddTasksArrayForTodoListAC;
+    | RemoveTodoListAC
+    | AddTodoListAC
 
 export const REMOVE_TASK = 'Remove-task';
 export const ADD_TASK = 'Add-task';
 export const UPDATE_TASK_STATUS = 'Update-task-status';
 export const UPDATE_TASK_TITLE = 'Update-task-title';
-export const DELETE_ALL_TASKS_FOR_TODOLIST = 'Delete-all-tasks-for-todoList';
-export const ADD_TASKS_ARRAY_FOR_TODOLIST = 'Add-tasks-array-for-todoList';
 
 type RemoveTaskAC = ReturnType<typeof removeTaskAC>;
 export const removeTaskAC = (todoListID: string, taskId: string) => {
@@ -24,7 +28,7 @@ export const removeTaskAC = (todoListID: string, taskId: string) => {
             taskId
         }
     } as const
-}
+};
 
 type AddTaskAC = ReturnType<typeof addTaskAC>;
 export const addTaskAC = (todoListID: string, taskTitle: string) => {
@@ -35,7 +39,7 @@ export const addTaskAC = (todoListID: string, taskTitle: string) => {
             taskTitle
         }
     } as const
-}
+};
 
 type UpdateTaskStatusAC = ReturnType<typeof updateTaskStatusAC>;
 export const updateTaskStatusAC = (todoListID: string, taskId: string) => {
@@ -46,7 +50,7 @@ export const updateTaskStatusAC = (todoListID: string, taskId: string) => {
             taskId
         }
     } as const
-}
+};
 
 type UpdateTaskTitleAC = ReturnType<typeof updateTaskTitleAC>;
 export const updateTaskTitleAC = (todoListID: string, taskId: string, newTitle: string) => {
@@ -58,29 +62,11 @@ export const updateTaskTitleAC = (todoListID: string, taskId: string, newTitle: 
             newTitle
         }
     } as const
-}
+};
 
-type DeleteAllTasksForTodoListAC = ReturnType<typeof deleteAllTasksForTodoListAC>;
-export const deleteAllTasksForTodoListAC = (todoListID: string) => {
-    return {
-        type: DELETE_ALL_TASKS_FOR_TODOLIST,
-        payload: {
-            todoListID
-        }
-    } as const
-}
+const initialState: TasksType = {  };
 
-type AddTasksArrayForTodoListAC = ReturnType<typeof addTasksArrayForTodoListAC>;
-export const addTasksArrayForTodoListAC = (newListID: string) => {
-    return {
-        type: ADD_TASKS_ARRAY_FOR_TODOLIST,
-        payload: {
-            newListID
-        }
-    } as const
-}
-
-export const tasksReducer = (state: TasksType, action: TasksReducerAction): TasksType => {
+export const tasksReducer = (state: TasksType = initialState, action: TasksReducerAction): TasksType => {
     switch (action.type) {
         case REMOVE_TASK:
             return {
@@ -88,7 +74,7 @@ export const tasksReducer = (state: TasksType, action: TasksReducerAction): Task
                 [action.payload.todoListID]: state[action.payload.todoListID].filter(task => task.id !== action.payload.taskId)
             };
         case ADD_TASK:
-            const newTask: TaskType = {id: uuidv4(), title: action.payload.taskTitle, status: false};
+            const newTask: TaskType = {id: v1(), title: action.payload.taskTitle, status: false};
             return {...state, [action.payload.todoListID]: [newTask, ...state[action.payload.todoListID]]};
         case UPDATE_TASK_STATUS:
             return {
@@ -106,13 +92,12 @@ export const tasksReducer = (state: TasksType, action: TasksReducerAction): Task
                     title: action.payload.newTitle
                 } : task)
             };
-        case DELETE_ALL_TASKS_FOR_TODOLIST:
-            const {[action.payload.todoListID]: _, ...newState} = {...state}
+        case REMOVE_TODOLIST:
+            const {[action.payload.todoListID]: _, ...newState} = state
             return newState
-        case ADD_TASKS_ARRAY_FOR_TODOLIST:
+        case ADD_TODOLIST:
             return {...state, [action.payload.newListID]: []}
         default:
-            throw new Error('tasksReducer don\'t understand this action.type!');
+            return state
     }
-
-}
+};

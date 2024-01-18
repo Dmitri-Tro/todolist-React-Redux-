@@ -1,0 +1,17 @@
+.task {
+list-style: none;
+}
+
+.taskCheckbox {
+    cursor: pointer;
+}
+
+.taskDone {
+    opacity: 70%;
+    text-decoration: line-through;
+}
+
+.btn {
+    border: none;
+    background-color: inherit;
+}
