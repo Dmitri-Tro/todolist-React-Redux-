@@ -31,7 +31,7 @@ export const InputAndButton: FC<InputAndButtonPropsType> = React.memo(({addNewIt
 
         return (
             <div style={{display: "flex", flexDirection: 'column', height: '55px'}}>
-                <div>
+                <div className={styles.inputWrapper}>
                     <input
                         className={inputError || maxLengthTaskError ? styles.input + ' ' + styles.inputError : styles.input}
                         value={title}

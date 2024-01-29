@@ -5,8 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import {InputAndButton} from "./components/InputAndButton/InputAndButton";
 import {
     tasksReducer,
-    updateTaskTitleAC,
-    updateTaskStatusAC,
+    updateTaskAC,
     addTaskAC,
     removeTaskAC, TasksReducerAction
 } from "./state/tasks-reduser/tasks-reducer";

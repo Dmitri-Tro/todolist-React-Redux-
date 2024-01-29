@@ -1,36 +1,42 @@
-import React, {FC, useCallback, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import {Button} from "../Button/Button";
 import {EditableTitle} from "../EditableTitle/EditableTitle";
-import {useDispatch, useSelector} from "react-redux";
-import {removeTodoListAC, updateTodoListTitleAC} from "../../state/todoLists-reducer/todoLists-reducer";
-import {AppRootState} from "../../state/store";
+import {
+    removeTodoListTC,
+    updateTodoListTitleTC
+} from "../../state/todoLists-reducer/todoLists-reducer";
 import {InputAndButton} from "../InputAndButton/InputAndButton";
 import {Tasks} from "../Tasks/Tasks";
-import {addTaskAC} from "../../state/tasks-reduser/tasks-reducer";
+import {addTaskTC, setTasksTC} from "../../state/tasks-reduser/tasks-reducer";
+import {FilterValuesType} from "../../types/types";
+import {useAppDispatch} from "../../state/store";
 
 type TodolistPropsType = {
     todoListID: string
+    todoListTitle: string
+    todoListFilter: FilterValuesType
 }
-export const Todolist: FC<TodolistPropsType> = React.memo(({todoListID}) => {
+export const Todolist: FC<TodolistPropsType> = React.memo(({todoListID, todoListTitle, todoListFilter}) => {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(setTasksTC(todoListID))
+    }, [dispatch, todoListID])
 
     const [todoListCollapsed, setTodoListCollapsed] = useState<boolean>(false);
     const onCollapsedBtnClick = () => {
         setTodoListCollapsed(!todoListCollapsed);
     };
 
-    const todoListTitle = useSelector<AppRootState, string>(state => state.todoLists.find(list => list.id === todoListID)!.title);
-    const dispatch = useDispatch();
-
     const onDeleteTodoListBtnClick = useCallback(() => {
-        dispatch(removeTodoListAC(todoListID));
+        dispatch(removeTodoListTC(todoListID));
     }, [dispatch, todoListID]);
 
     const setTodoListNewTitle = useCallback((newTitle: string) => {
-        dispatch(updateTodoListTitleAC(todoListID, newTitle));
+        dispatch(updateTodoListTitleTC(todoListID, newTitle));
     }, [dispatch, todoListID]);
 
     const addNewTask = useCallback((taskTitle: string) => {
-        dispatch(addTaskAC(todoListID, taskTitle));
+        dispatch(addTaskTC(todoListID, taskTitle));
     }, [dispatch, todoListID]);
 
     return (
@@ -44,7 +50,7 @@ export const Todolist: FC<TodolistPropsType> = React.memo(({todoListID}) => {
             {todoListCollapsed ? null :
                 <>
                     <InputAndButton addNewItem={addNewTask} inputBtnTitle={'Add task'} maxTitleLength={15}/>
-                    <Tasks todoListID={todoListID}/>
+                    <Tasks todoListID={todoListID} todoListFilter={todoListFilter}/>
                 </>
             }
         </div>
