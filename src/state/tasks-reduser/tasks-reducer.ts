@@ -7,7 +7,7 @@ import {
 } from "../todoLists-reducer/todoLists-reducer";
 import {Dispatch} from "redux";
 import {api, ApiTaskModel} from "../../api/api";
-import {AppRootState} from "../store";
+import {AppRootState, AppThunk} from "../store";
 
 export type TasksReducerAction =
     | SetTodoListsAC
@@ -102,26 +102,26 @@ export const tasksReducer = (state: TasksType = initialState, action: TasksReduc
     }
 };
 
-export const setTasksTC = (todoListID: string) => {
-    return (dispatch: Dispatch) => {
+export const setTasksTC = (todoListID: string): AppThunk => {
+    return (dispatch) => {
         api.getTasks(todoListID)
             .then((res) => dispatch(setTasksAC(todoListID, res.data.items)))
     }
 };
-export const removeTaskTC = (todoListID: string, taskId: string) => {
-    return (dispatch: Dispatch) => {
+export const removeTaskTC = (todoListID: string, taskId: string): AppThunk => {
+    return (dispatch) => {
         api.deleteTask(todoListID, taskId)
             .then(() => dispatch(removeTaskAC(todoListID, taskId)))
     }
 };
-export const addTaskTC = (todoListID: string, taskTitle: string) => {
-    return (dispatch: Dispatch) => {
+export const addTaskTC = (todoListID: string, taskTitle: string): AppThunk => {
+    return (dispatch) => {
         api.createTask(todoListID, taskTitle)
             .then(res => dispatch(addTaskAC(res.data.data.item)))
     }
 };
-export const updateTaskTC = <K extends keyof ApiTaskModel>(todoListID: string, taskId: string, updatedItem: Pick<ApiTaskModel, K>) => {
-    return (dispatch: Dispatch, getState: () => AppRootState) => {
+export const updateTaskTC = <K extends keyof ApiTaskModel>(todoListID: string, taskId: string, updatedItem: Pick<ApiTaskModel, K>): AppThunk => {
+    return (dispatch, getState: () => AppRootState) => {
         const task = getState().tasks[todoListID].find(t => t.id === taskId);
         if (task) {
             const model: ApiTaskModel = {
