@@ -3,28 +3,43 @@ import {Button} from "../Button/Button";
 import React, {FC} from "react";
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {useTasks} from "./costomHooks/useTasks";
-import {FilterValuesType} from "../../types/types";
+import {FilterValuesType, RequestStatusType} from "../../types/types";
 
 type TasksPropsType = {
     todoListID: string
     todoListFilter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 
-export const Tasks: FC<TasksPropsType> = React.memo(({todoListID, todoListFilter}) => {
+export const Tasks: FC<TasksPropsType> = React.memo(({
+                                                         todoListID,
+                                                         todoListFilter,
+                                                         entityStatus
+                                                     }) => {
 
-const {filteredTasks, tasksFilter, onAllBtnClick, onActiveBtnClick, onCompletedBtnClick} = useTasks(todoListID, todoListFilter);
+    const {
+        filteredTasks,
+        tasksFilter,
+        onAllBtnClick,
+        onActiveBtnClick,
+        onCompletedBtnClick
+    } = useTasks(todoListID, todoListFilter);
     const [listRef] = useAutoAnimate<HTMLUListElement>();
 
     if (filteredTasks && filteredTasks.length > 0) {
         return (
             <>
-                        <ul ref={listRef}>
-                            {filteredTasks.map(task => {
-                                return (
-                                    <Task key={task.id} todoListID={todoListID} taskId={task.id}/>
-                                )
-                            })}
-                        </ul>
+                <ul ref={listRef}>
+                    {filteredTasks.map(task => {
+                        return (
+                            <Task key={task.id}
+                                  todoListID={todoListID}
+                                  taskId={task.id}
+                                  entityStatus={entityStatus}
+                            />
+                        )
+                    })}
+                </ul>
 
                 <Button
                     classes={tasksFilter === 'All' ? 'active-filter-btn' : ''}
@@ -44,7 +59,7 @@ const {filteredTasks, tasksFilter, onAllBtnClick, onActiveBtnClick, onCompletedB
             </>
         )
     } else if (filteredTasks && filteredTasks.length === 0) {
-           return <span style={{display: 'block', marginBottom: '10px'}}>Your list is empty... :(</span>
+        return <span style={{display: 'block', marginBottom: '10px'}}>Your list is empty... :(</span>
     } else {
         return <span style={{display: 'block', marginBottom: '10px'}}>Some problems with array of tasks... :(</span>
     }

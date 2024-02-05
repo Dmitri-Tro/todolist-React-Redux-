@@ -1,22 +1,14 @@
 import axios, {AxiosResponse} from "axios";
-import {FilterValuesType, TaskPriorities, TaskStatuses, TaskType} from "../types/types";
+import {TaskPriorities, TaskStatuses, TaskType, TodoListDomain} from "../types/types";
 
-export type TodoListDomain = {
-    id: string,
-    title: string,
-    addedDate: Date,
-    order: number
-    filter: FilterValuesType
-}
-
-type BaseResponse<T = {}> = {
+export type BaseResponse<T = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: []
     data: T
 }
 
-type GetTaskResponse = {
+export type GetTaskResponse = {
     items: TaskType[]
     totalCount: number
     error: string
@@ -44,7 +36,8 @@ export const api = {
         return instance.get<TodoListDomain[]>('todo-lists');
     },
     createTodoList: (title: string) => {
-        return instance.post<BaseResponse<{ item: TodoListDomain }>, AxiosResponse<BaseResponse<{ item: TodoListDomain }>>, { title: string }>('todo-lists', {title});
+        return (instance.post<BaseResponse<{ item: TodoListDomain }>, AxiosResponse<BaseResponse<{ item: TodoListDomain }>>, { title: string }>
+        ('todo-lists', {title}))
     },
     deleteTodoList: (todoListID: string) => {
         return instance.delete<BaseResponse>(`todo-lists/${todoListID}`);
@@ -56,12 +49,16 @@ export const api = {
         return instance.get<GetTaskResponse>(`todo-lists/${todoListID}/tasks`)
     },
     createTask: (todoListID: string, title: string) => {
-        return instance.post<BaseResponse<{ item: TaskType }>, AxiosResponse<BaseResponse<{ item: TaskType }>>, { title: string }>(`todo-lists/${todoListID}/tasks`, {title});
+        return (
+            instance.post<BaseResponse<{ item: TaskType }>, AxiosResponse<BaseResponse<{ item: TaskType }>>, { title: string }>
+            (`todo-lists/${todoListID}/tasks`, {title}))
     },
     deleteTask: (todoListID: string, taskId: string) => {
         return instance.delete<BaseResponse>(`todo-lists/${todoListID}/tasks/${taskId}`);
     },
     updateTask: (todoListID: string, taskId: string, model: ApiTaskModel) => {
-        return instance.put<BaseResponse<{ item: TaskType }>, AxiosResponse<BaseResponse<{ item: TaskType }>, {model: ApiTaskModel}>>(`todo-lists/${todoListID}/tasks/${taskId}`, model);
+        return (
+            instance.put<BaseResponse<{ item: TaskType }>, AxiosResponse<BaseResponse<{ item: TaskType }>, {model: ApiTaskModel}>>
+            (`todo-lists/${todoListID}/tasks/${taskId}`, model))
     },
 }

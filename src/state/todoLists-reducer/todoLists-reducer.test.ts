@@ -2,13 +2,13 @@ import {
     todoListsReducer,
     removeTodoListAC, addTodoListAC, updateTodoListTitleAC
 } from "./todoLists-reducer";
-import {TodoListType} from "../../types/types";
+import {TodoListDomain, TodoListType} from "../../types/types";
 
-let startData: Array<TodoListType>;
+let startData: Array<TodoListDomain>;
 beforeEach(() => {
     startData = [
-        {id: '1', title: 'What to learn', addedDate: new Date(), order: 0, filter: "All"},
-        {id: '2', title: 'What to buy', addedDate: new Date(), order: 0, filter: "All"}
+        {id: '1', title: 'What to learn', addedDate: new Date(), order: 0, filter: "All", entityStatus: "idle"},
+        {id: '2', title: 'What to buy', addedDate: new Date(), order: 0, filter: "All", entityStatus: "idle"}
     ];
 });
 test('Reducer should remove todoList', () => {
