@@ -4,6 +4,7 @@ import React, {FC} from "react";
 import {useAutoAnimate} from "@formkit/auto-animate/react";
 import {useTasks} from "./costomHooks/useTasks";
 import {FilterValuesType, RequestStatusType} from "../../types/types";
+import styles from "./Tasks.module.css"
 
 type TasksPropsType = {
     todoListID: string
@@ -42,17 +43,17 @@ export const Tasks: FC<TasksPropsType> = React.memo(({
                 </ul>
 
                 <Button
-                    classes={tasksFilter === 'All' ? 'active-filter-btn' : ''}
+                    classes={tasksFilter === 'All' ? styles.activeFilterBtn : ''}
                     title="ALL"
                     onClickHandler={onAllBtnClick}
                 />
                 <Button
-                    classes={tasksFilter === 'Active' ? 'active-filter-btn' : ''}
+                    classes={tasksFilter === 'Active' ? styles.activeFilterBtn : ''}
                     title="ACTIVE"
                     onClickHandler={onActiveBtnClick}
                 />
                 <Button
-                    classes={tasksFilter === 'Completed' ? 'active-filter-btn' : ''}
+                    classes={tasksFilter === 'Completed' ? styles.activeFilterBtn : ''}
                     title="COMPLETED"
                     onClickHandler={onCompletedBtnClick}
                 />

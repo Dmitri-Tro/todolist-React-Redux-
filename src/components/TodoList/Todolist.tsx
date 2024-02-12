@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useState} from "react";
 import {Button} from "../Button/Button";
 import {EditableTitle} from "../EditableTitle/EditableTitle";
 import {
@@ -7,9 +7,10 @@ import {
 } from "../../state/todoLists-reducer/todoLists-reducer";
 import {InputAndButton} from "../InputAndButton/InputAndButton";
 import {Tasks} from "../Tasks/Tasks";
-import {addTaskTC, setTasksTC} from "../../state/tasks-reduser/tasks-reducer";
+import {addTaskTC} from "../../state/tasks-reduser/tasks-reducer";
 import {FilterValuesType, RequestStatusType} from "../../types/types";
 import {useAppDispatch} from "../../state/store";
+import styles from './TodoList.module.css';
 
 type TodolistPropsType = {
     todoListID: string
@@ -24,9 +25,6 @@ export const Todolist: FC<TodolistPropsType> = React.memo(({
                                                                entityStatus
                                                            }) => {
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(setTasksTC(todoListID))
-    }, [dispatch, todoListID])
 
     const [todoListCollapsed, setTodoListCollapsed] = useState<boolean>(false);
     const onCollapsedBtnClick = () => {
@@ -46,7 +44,7 @@ export const Todolist: FC<TodolistPropsType> = React.memo(({
     }, [dispatch, todoListID]);
 
     return (
-        <div className="todolist">
+        <div className={styles.todolist}>
             <h3>
                 <EditableTitle oldTitle={todoListTitle}
                                setNewTitle={setTodoListNewTitle}
@@ -57,7 +55,7 @@ export const Todolist: FC<TodolistPropsType> = React.memo(({
                         disabled={entityStatus === 'loading'}
                 />
             </h3>
-            <Button classes={'collapsed-btn'}
+            <Button classes={styles.collapsedBtn}
                     title={todoListCollapsed ? 'Show tasks' : 'Hide tasks'}
                     onClickHandler={onCollapsedBtnClick}
             />

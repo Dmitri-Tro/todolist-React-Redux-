@@ -1,8 +1,8 @@
 import axios, {AxiosResponse} from "axios";
-import {TaskPriorities, TaskStatuses, TaskType, TodoListDomain} from "../types/types";
+import {FetchResultCode, TaskPriorities, TaskStatuses, TaskType, TodoListDomain} from "../types/types";
 
 export type BaseResponse<T = {}> = {
-    resultCode: number
+    resultCode: FetchResultCode
     messages: string[]
     fieldsErrors: []
     data: T
@@ -26,9 +26,6 @@ export type ApiTaskModel = {
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
-    headers: {
-        'API-KEY': 'a19bb5a7-336b-4ae7-b475-a0ca6f07ecf9'
-    }
 });
 
 export const api = {

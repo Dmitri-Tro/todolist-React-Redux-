@@ -1,0 +1,11 @@
+.todolist {
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 15px;
+    background-color:  #CBD0CC;
+}
+
+.collapsedBtn {
+    margin-bottom: 10px;
+}

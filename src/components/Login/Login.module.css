@@ -1,0 +1,12 @@
+.formField {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.formError{
+    position: absolute;
+    bottom: -2px;
+    display: flex;
+    color: red;
+    flex-wrap: nowrap;
+}

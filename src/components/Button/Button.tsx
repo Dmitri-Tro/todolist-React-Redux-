@@ -1,4 +1,5 @@
 import React, {FC} from "react";
+import styles from "./Button.module.css";
 
 type ButtonComponentPropsType = {
     title: string,
@@ -13,6 +14,6 @@ export const Button: FC<ButtonComponentPropsType> = React.memo(({
                                                                              classes
                                                                          }) => {
     return (
-        <button className={classes} disabled={disabled} onClick={onClickHandler}>{title}</button>
+        <button className={ styles.btn + ' ' + classes} disabled={disabled} onClick={onClickHandler}>{title}</button>
     )
 });

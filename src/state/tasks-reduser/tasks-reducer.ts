@@ -1,7 +1,7 @@
 import {FetchResultCode, RequestStatusType, ResponseError, TasksType, TaskType} from "../../types/types";
 import {
     ADD_TODOLIST,
-    AddTodoListAC,
+    AddTodoListAC, CLEAR_TODOLISTS_DATA, ClearTodoListsDataAC,
     REMOVE_TODOLIST,
     RemoveTodoListAC, SET_TODOLISTS, setEntityStatusAC, SetTodoListsAC,
 } from "../todoLists-reducer/todoLists-reducer";
@@ -21,6 +21,7 @@ export type TasksReducerAction =
     | AddTodoListAC
     | AppReducerActions
     | SetTasksEntityStatusAC
+    | ClearTodoListsDataAC
 
 export const SET_TASKS = 'Set-tasks';
 export const REMOVE_TASK = 'Remove-task';
@@ -122,6 +123,8 @@ export const tasksReducer = (state: TasksType = initialState, action: TasksReduc
                 [action.payload.todoListID]: state[action.payload.todoListID].map(task => task.id === action.payload.taskId ?
                     {...task, entityStatus: action.payload.entityStatus} : task)
             }
+        case CLEAR_TODOLISTS_DATA:
+            return {}
         default:
             return state
     }
