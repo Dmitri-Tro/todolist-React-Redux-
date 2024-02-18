@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import {InputAndButton} from "./InputAndButton";
-
+import type { Meta, StoryObj } from "@storybook/react";
+import { InputAndButton } from "./InputAndButton";
 
 //----------COMMON STORIES SETTINGS-------------------------------------------------------------------------------
 
@@ -8,20 +7,20 @@ const meta: Meta<typeof InputAndButton> = {
     title: 'TODOLIST/Component "Input with button"',
     component: InputAndButton,
     parameters: {
-        layout: 'centered',
+        layout: "centered",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
         addNewItem: {
-            description: 'Callback is add item to global state',
-            action: 'Button clicked, new item value pushed',
+            description: "Callback is add item to global state",
+            action: "Button clicked, new item value pushed",
         },
         inputBtnTitle: {
-            description: 'Just add button title',
+            description: "Just add button title",
         },
         maxTitleLength: {
-            description: 'Set maximum string length',
-        }
+            description: "Set maximum string length",
+        },
     },
 };
 
@@ -33,7 +32,7 @@ type Story = StoryObj<typeof InputAndButton>;
 
 export const BaseExampleWithUsage: Story = {
     args: {
-        inputBtnTitle: 'Add Item',
+        inputBtnTitle: "Add Item",
         maxTitleLength: 15,
-    }
+    },
 };

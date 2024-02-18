@@ -1,4 +1,10 @@
 .activeFilterBtn {
     color: white;
-    background-color: blue;
+    background-color: #1976d2;
+}
+
+.emptyListNotice {
+    display: block;
+    color: #1976d2;
+    margin-bottom: 10px;
 }

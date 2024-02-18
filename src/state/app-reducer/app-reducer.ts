@@ -1,49 +1,45 @@
-import {RequestStatusType} from "../../types/types";
-
+import { RequestStatus } from "types/types";
 
 const initialState = {
     isInitialized: false,
-    status: 'idle' as RequestStatusType,
-    error: null as null | string
-}
-
-type InitialStateType = typeof initialState
+    status: "idle" as RequestStatus,
+    error: null as null | string,
+};
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActions): InitialStateType => {
     switch (action.type) {
-        case 'APP/SET-STATUS':
-            return {...state, status: action.status}
+        case "APP/SET-STATUS":
+            return { ...state, status: action.status };
         case "APP/SET-ERROR":
-            return {...state, error: action.error}
+            return { ...state, error: action.error };
         case "APP/SET-INITIALIZED":
-            return {...state, isInitialized: action.isInitialized}
+            return { ...state, isInitialized: action.isInitialized };
         default:
-            return state
+            return state;
     }
-}
+};
 
-export const setStatusAC = (status: RequestStatusType) => {
+// Actions
+export const setStatusAC = (status: RequestStatus) => {
     return {
-        type: 'APP/SET-STATUS',
-        status
-    } as const
-}
+        type: "APP/SET-STATUS",
+        status,
+    } as const;
+};
 export const setErrorAC = (error: null | string) => {
     return {
-        type: 'APP/SET-ERROR',
-        error
-    } as const
-}
+        type: "APP/SET-ERROR",
+        error,
+    } as const;
+};
 export const setInitializedAC = (isInitialized: boolean) => {
     return {
         type: "APP/SET-INITIALIZED",
-        isInitialized
-    } as const
-}
+        isInitialized,
+    } as const;
+};
 
-export type SetInitialized = ReturnType<typeof setInitializedAC>
-
-export type AppReducerActions =
-    ReturnType<typeof setStatusAC>
-    | ReturnType<typeof setErrorAC>
-    | SetInitialized
+// Types
+export type AppReducerActions = ReturnType<typeof setStatusAC> | ReturnType<typeof setErrorAC> | SetInitialized;
+export type SetInitialized = ReturnType<typeof setInitializedAC>;
+type InitialStateType = typeof initialState;

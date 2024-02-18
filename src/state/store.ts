@@ -1,19 +1,19 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {tasksReducer, TasksReducerAction} from "./tasks-reduser/tasks-reducer";
-import {todoListsReducer, TodoListsReducerAction} from "./todoLists-reducer/todoLists-reducer";
-import {thunk, ThunkAction, ThunkDispatch} from "redux-thunk";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {appReducer, AppReducerActions} from "./app-reducer/app-reducer";
-import {authReducer, AuthReducerAction} from "./auth-reduser/auth-reducer";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
+import { tasksReducer, TasksReducerAction } from "state/tasks-reduser/tasks-reducer";
+import { todoListsReducer, TodoListsReducerAction } from "state/todoLists-reducer/todoLists-reducer";
+import { thunk, ThunkAction, ThunkDispatch } from "redux-thunk";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { appReducer, AppReducerActions } from "state/app-reducer/app-reducer";
+import { authReducer, AuthReducerAction } from "state/auth-reduser/auth-reducer";
 
 export const reducers = combineReducers({
     app: appReducer,
     tasks: tasksReducer,
     todoLists: todoListsReducer,
-    auth: authReducer
+    auth: authReducer,
 });
 
-export type AppRootState = ReturnType<typeof reducers>
+export type AppRootState = ReturnType<typeof reducers>;
 
 export const store = createStore(
     reducers,
@@ -21,9 +21,9 @@ export const store = createStore(
         app: undefined,
         tasks: undefined,
         todoLists: undefined,
-        auth: undefined
+        auth: undefined,
     },
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
 );
 
 export type AppActions = TodoListsReducerAction | TasksReducerAction | AppReducerActions | AuthReducerAction;

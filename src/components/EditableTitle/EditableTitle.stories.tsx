@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import {EditableTitle} from "./EditableTitle";
-
+import type { Meta, StoryObj } from "@storybook/react";
+import { EditableTitle } from "./EditableTitle";
 
 //----------COMMON STORIES SETTINGS-------------------------------------------------------------------------------
 
@@ -8,17 +7,18 @@ const meta: Meta<typeof EditableTitle> = {
     title: 'TODOLIST/Component "Editable title"',
     component: EditableTitle,
     parameters: {
-        layout: 'centered',
+        layout: "centered",
     },
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
         oldTitle: {
-            description: 'It is a value of title from global state. On double click you can change view mode and update this title.'
+            description:
+                "It is a value of title from global state. On double click you can change view mode and update this title.",
         },
         setNewTitle: {
-            description: 'Callback is update title from global state. Callback works when input on blur',
-            action: 'Button clicked, new title value pushed',
-        }
+            description: "Callback is update title from global state. Callback works when input on blur",
+            action: "Button clicked, new title value pushed",
+        },
     },
 };
 
@@ -30,6 +30,6 @@ type Story = StoryObj<typeof EditableTitle>;
 
 export const BaseExampleWithUsage: Story = {
     args: {
-        oldTitle: 'Storybook'
-    }
+        oldTitle: "Storybook",
+    },
 };

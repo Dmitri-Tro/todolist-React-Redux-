@@ -7,12 +7,12 @@
 }
 
 .logo {
-    font-family: "Montserrat";
+    font-family: "Montserrat", sans-serif;
     font-size: 24px;
     font-weight: bold;
     color: white;
 }
 
 .logoutBtn {
-    color: blue;
+    color: #1976d2;
 }

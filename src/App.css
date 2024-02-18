@@ -1,10 +1,15 @@
 ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .App {
-  width: 1920px;
+    width: 1920px;
 }
 
-
+.preloader {
+    position: fixed;
+    top: 30%;
+    text-align: center;
+    width: 100%;
+}

@@ -3,7 +3,7 @@
     padding-bottom: 10px;
 }
 
-.formError{
+.formError {
     position: absolute;
     bottom: -2px;
     display: flex;

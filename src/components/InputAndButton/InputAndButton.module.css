@@ -1,10 +1,16 @@
+.componentWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 55px;
+}
+
 .inputWrapper {
     width: max-content;
 }
 
 .input {
     border-radius: 5px;
-    border: 2px solid blue;
+    border: 2px solid #1976d2;
     padding: 5px;
     outline: none;
 }
@@ -16,7 +22,7 @@
 .btn {
     font-weight: bold;
     color: white;
-    background-color: blue;
+    background-color: #1976d2;
     border: none;
     border-radius: 5px;
     cursor: pointer;
