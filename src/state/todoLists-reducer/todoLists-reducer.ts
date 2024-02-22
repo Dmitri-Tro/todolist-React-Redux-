@@ -1,11 +1,4 @@
-import {
-    FetchResultCode,
-    FilterValues,
-    RequestStatus,
-    ResponseError,
-    TodoListDomain,
-    TodoList,
-} from "types/types";
+import { FetchResultCode, FilterValues, RequestStatus, ResponseError, TodoListDomain, TodoList } from "types/types";
 import { AppThunk } from "../store";
 import { AppReducerActions, setStatusAC } from "state/app-reducer/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
@@ -125,7 +118,8 @@ export const clearTodoListsDataAC = () => {
 export const getTodoListsTC = (): AppThunk => {
     return (dispatch) => {
         dispatch(setStatusAC("loading"));
-        todoListsApi.getTodoLists()
+        todoListsApi
+            .getTodoLists()
             .then((res) => {
                 dispatch(setTodoListsAC(res.data));
                 dispatch(setStatusAC("succeeded"));
@@ -144,7 +138,8 @@ export const getTodoListsTC = (): AppThunk => {
 export const addTodoListTC = (title: string): AppThunk => {
     return (dispatch) => {
         dispatch(setStatusAC("loading"));
-        todoListsApi.createTodoList(title)
+        todoListsApi
+            .createTodoList(title)
             .then((res) => {
                 if (res.data.resultCode === FetchResultCode.Successful) {
                     dispatch(addTodoListAC(res.data.data.item));
@@ -162,7 +157,8 @@ export const removeTodoListTC = (todoListID: string): AppThunk => {
     return (dispatch) => {
         dispatch(setEntityStatusAC(todoListID, "loading"));
         dispatch(setStatusAC("loading"));
-        todoListsApi.deleteTodoList(todoListID)
+        todoListsApi
+            .deleteTodoList(todoListID)
             .then((res) => {
                 if (res.data.resultCode === FetchResultCode.Successful) {
                     dispatch(removeTodoListAC(todoListID));
@@ -182,7 +178,8 @@ export const updateTodoListTitleTC = (todoListID: string, newTitle: string): App
     return (dispatch) => {
         dispatch(setEntityStatusAC(todoListID, "loading"));
         dispatch(setStatusAC("loading"));
-        todoListsApi.updateTodoListTitle(todoListID, newTitle)
+        todoListsApi
+            .updateTodoListTitle(todoListID, newTitle)
             .then((res) => {
                 if (res.data.resultCode === FetchResultCode.Successful) {
                     dispatch(updateTodoListTitleAC(todoListID, newTitle));

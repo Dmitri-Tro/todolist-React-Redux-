@@ -1,10 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import {
-    ApiTaskModel,
-    BaseResponse,
-    GetTaskResponse,
-    TaskT
-} from "types/types";
+import { ApiTaskModel, BaseResponse, GetTaskResponse, TaskT } from "types/types";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",

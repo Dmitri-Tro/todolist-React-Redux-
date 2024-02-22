@@ -9,7 +9,6 @@ type EditableTitleProps = {
 
 type Mode = "viewMode" | "inputMode";
 export const EditableTitle: FC<EditableTitleProps> = React.memo(({ oldTitle, setNewTitle, disabled }) => {
-
     const [updatedTitle, setUpdatedTitle] = useState<string>(oldTitle);
     const [mode, setMode] = useState<Mode>("viewMode");
     const onTitleInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

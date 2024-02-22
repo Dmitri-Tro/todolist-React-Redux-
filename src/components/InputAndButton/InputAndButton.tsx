@@ -9,13 +9,8 @@ type InputAndButtonPropsType = {
     disabled?: boolean;
 };
 
-export const InputAndButton: FC<InputAndButtonPropsType> = React.memo(({
-                                                                           addNewItem,
-                                                                           inputBtnTitle,
-                                                                           maxTitleLength,
-                                                                           disabled
-                                                                       }) => {
-
+export const InputAndButton: FC<InputAndButtonPropsType> = React.memo(
+    ({ addNewItem, inputBtnTitle, maxTitleLength, disabled }) => {
         const [title, setTitle] = useState<string>("");
         const [inputError, setInputError] = useState<boolean>(false);
         const maxLengthTaskError = title.length >= maxTitleLength;
@@ -62,5 +57,5 @@ export const InputAndButton: FC<InputAndButtonPropsType> = React.memo(({
                 {inputError && <div style={{ color: "red" }}>Title must contain any symbols</div>}
             </div>
         );
-    }
+    },
 );

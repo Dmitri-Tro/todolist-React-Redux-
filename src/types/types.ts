@@ -6,7 +6,7 @@ export type TodoList = {
     filter: FilterValues;
 };
 
-export type TodoListDomain = TodoList & { entityStatus: RequestStatus; }
+export type TodoListDomain = TodoList & { entityStatus: RequestStatus };
 
 export type Tasks = {
     [todoListID: string]: Array<TaskT>;

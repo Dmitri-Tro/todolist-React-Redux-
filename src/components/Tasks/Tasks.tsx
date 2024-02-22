@@ -9,40 +9,29 @@ import styles from "./Tasks.module.css";
 type TasksProps = {
     todoListID: string;
     todoListFilter: FilterValues;
-    entityStatus: RequestStatus
+    entityStatus: RequestStatus;
 };
 
 export const Tasks: FC<TasksProps> = React.memo(({ todoListID, todoListFilter, entityStatus }) => {
-    const {
-        filteredTasks,
-        tasksFilter,
-        onAllBtnClick,
-        onActiveBtnClick,
-        onCompletedBtnClick
-    } = useTasks(
+    const { filteredTasks, tasksFilter, onAllBtnClick, onActiveBtnClick, onCompletedBtnClick } = useTasks(
         todoListID,
-        todoListFilter
+        todoListFilter,
     );
     const [listRef] = useAutoAnimate<HTMLUListElement>();
 
     return (
         <>
-            {filteredTasks && filteredTasks.length > 0
-                ?
+            {filteredTasks && filteredTasks.length > 0 ? (
                 <ul ref={listRef}>
                     {filteredTasks.map((task) => {
                         return (
-                            <Task key={task.id}
-                                  todoListID={todoListID}
-                                  taskId={task.id}
-                                  entityStatus={entityStatus}
-                            />
+                            <Task key={task.id} todoListID={todoListID} taskId={task.id} entityStatus={entityStatus} />
                         );
                     })}
                 </ul>
-                :
+            ) : (
                 <span className={styles.emptyListNotice}>Your list is empty... :(</span>
-            }
+            )}
             <Button
                 classes={tasksFilter === "All" ? styles.activeFilterBtn : ""}
                 title="ALL"

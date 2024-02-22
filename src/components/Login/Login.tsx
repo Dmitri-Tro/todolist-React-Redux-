@@ -16,7 +16,6 @@ import { selectIsLogin } from "state/selectors/auth.selectors";
 import { validate } from "utils/loginFormValidate-utils";
 import { LoginInfo } from "components/Login/LoginInfo/LoginInfo";
 
-
 export const Login: FC = () => {
     const dispatch = useAppDispatch();
     const isLogin = useAppSelector(selectIsLogin);
@@ -25,12 +24,12 @@ export const Login: FC = () => {
         initialValues: {
             email: "",
             password: "",
-            rememberMe: false
+            rememberMe: false,
         },
         validate,
         onSubmit: (values) => {
             dispatch(loginTC(values.email, values.password, values.rememberMe));
-        }
+        },
     });
 
     if (isLogin) {

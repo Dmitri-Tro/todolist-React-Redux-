@@ -22,7 +22,7 @@ export const ADD_TASK = "Add-task";
 export const UPDATE_TASK = "Update-task";
 export const SET_TASKS_ENTITYSTATUS = "Set-tasks-entityStatus";
 
-export const tasksReducer = (state: Tasks = {  }, action: TasksReducerAction): Tasks => {
+export const tasksReducer = (state: Tasks = {}, action: TasksReducerAction): Tasks => {
     switch (action.type) {
         case SET_TODOLISTS:
             const copyState = { ...state };
@@ -125,7 +125,8 @@ export const setTasksEntityStatusAC = (todoListID: string, taskId: string, entit
 export const setTasksTC = (todoListID: string): AppThunk => {
     return (dispatch) => {
         dispatch(setStatusAC("loading"));
-        tasksApi.getTasks(todoListID)
+        tasksApi
+            .getTasks(todoListID)
             .then((res) => {
                 if (!res.data.error) {
                     dispatch(setTasksAC(todoListID, res.data.items));
@@ -145,7 +146,8 @@ export const removeTaskTC = (todoListID: string, taskId: string): AppThunk => {
     return (dispatch) => {
         dispatch(setTasksEntityStatusAC(todoListID, taskId, "loading"));
         dispatch(setStatusAC("loading"));
-        tasksApi.deleteTask(todoListID, taskId)
+        tasksApi
+            .deleteTask(todoListID, taskId)
             .then((res) => {
                 if (res.data.resultCode === FetchResultCode.Successful) {
                     dispatch(removeTaskAC(todoListID, taskId));
@@ -166,7 +168,8 @@ export const addTaskTC = (todoListID: string, taskTitle: string): AppThunk => {
     return (dispatch) => {
         dispatch(setEntityStatusAC(todoListID, "loading"));
         dispatch(setStatusAC("loading"));
-        tasksApi.createTask(todoListID, taskTitle)
+        tasksApi
+            .createTask(todoListID, taskTitle)
             .then((res) => {
                 if (res.data.resultCode === FetchResultCode.Successful) {
                     dispatch(addTaskAC(res.data.data.item));
@@ -202,7 +205,8 @@ export const updateTaskTC = <K extends keyof ApiTaskModel>(
                 deadline: task.deadline,
             };
             const updateTaskModel = { ...model, ...updatedItem };
-            tasksApi.updateTask(todoListID, taskId, updateTaskModel)
+            tasksApi
+                .updateTask(todoListID, taskId, updateTaskModel)
                 .then((res) => {
                     if (res.data.resultCode === FetchResultCode.Successful) {
                         dispatch(updateTaskAC(todoListID, res.data.data.item));

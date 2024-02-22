@@ -25,8 +25,7 @@ export const Task: FC<TaskProps> = React.memo(({ todoListID, taskId, entityStatu
     );
     const onClickRemoveTask = useCallback(() => {
         dispatch(removeTaskTC(todoListID, taskId));
-    }, [dispatch, todoListID, taskId]
-    );
+    }, [dispatch, todoListID, taskId]);
     const onClickUpdateStatus = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(updateTaskTC(todoListID, taskId, { status: e.currentTarget.checked ? 2 : 0 }));
@@ -58,6 +57,6 @@ export const Task: FC<TaskProps> = React.memo(({ todoListID, taskId, entityStatu
             </li>
         );
     } else {
-        return <></>
+        return <></>;
     }
 });
